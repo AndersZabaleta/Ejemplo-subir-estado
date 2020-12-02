@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+
+import { useState } from "react";
+
+import Cabecera from "./Cabecera";
+import Barcos from "./Barcos";
+import Contacto from "./Contacto";
+import Footer from "./Footer";
 
 function App() {
+  let [visitantes, setVisitantes] = useState(0);
+
+  function sumarVisitante() {
+    setVisitantes(visitantes + 1);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Cabecera />
+      <section>
+        <p>Hemos tenido {visitantes} visitantes</p>
+      </section>
+      <Route path="/barcos">
+        <Barcos sumarVisitante={sumarVisitante} />
+      </Route>
+      <Route path="/contacto">
+        <Contacto />
+      </Route>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
